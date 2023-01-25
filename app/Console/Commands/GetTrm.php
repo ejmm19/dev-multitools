@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Env;
 
 class GetTrm extends Command
 {
@@ -41,7 +42,7 @@ class GetTrm extends Command
     public function handle()
     {
         $response = $this->trm->getTrmByService();
-        Http::post(env('URL_WEBHOOK_SLACK'),
+        Http::post(Env::get('URL_WEBHOOK_SLACK'),
             [
                 'text' => $response
             ]
