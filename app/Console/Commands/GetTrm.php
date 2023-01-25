@@ -41,7 +41,7 @@ class GetTrm extends Command
     public function handle()
     {
         $response = $this->trm->getTrmByService();
-        Http::post('https://hooks.slack.com/services/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',
+        Http::post('https://hooks.slack.com/services/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',
             [
                 'text' => $response
             ]
