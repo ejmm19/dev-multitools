@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
 class GetTrm extends Command
 {
     /**
@@ -36,11 +38,6 @@ class GetTrm extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle()
     {
         $response = $this->trm->getTrmByService();
@@ -49,6 +46,6 @@ class GetTrm extends Command
                 'text' => $response
             ]
         );
-        return 0;
+        Log::info('Send message to Slack');
     }
 }
