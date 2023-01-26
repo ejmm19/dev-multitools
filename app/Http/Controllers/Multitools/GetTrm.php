@@ -22,14 +22,33 @@ class GetTrm extends Controller
         try {
             $response = Http::get('https://api.anicamenterprises.com/v1/rates/trm/CO');
             if ($response->failed()) {
-                throw new \Exception('Error en la respuesta');
+                throw new \Exception('Error in response');
             }
-            $response = 'La tasa representativa del estado que rige para hoy es: '.$response->body();
+            $response = 'Trm today : '.$response->body();
             Log::info('get response successfully');
         }catch (\Exception $e ) {
             $response = $e->getMessage();
             Log::info('Error in response: '.$response);
         }
         return $response;
+    }
+
+    public function sendMessageTrm()
+    {
+        $trm = $this->getTrmByService();
+        $url = \config('dataelements.url');
+        try {
+            $response = Http::post($url,
+                [
+                    'text' => $trm
+                ]
+            );
+            if ($response != 'ok') {
+                throw new \Exception('Error in webhook, response: '.$response);
+            }
+            Log::info('Send message to Slack');
+        }catch (\Exception $e) {
+            Log::error('Error to send message: '.$e->getMessage());
+        }
     }
 }

@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Env;
 
 class GetTrm extends Command
 {
@@ -41,13 +40,6 @@ class GetTrm extends Command
 
     public function handle()
     {
-        $response = $this->trm->getTrmByService();
-        $url = \config('dataelements.url');
-        Http::post($url,
-            [
-                'text' => $response
-            ]
-        );
-        Log::info('Send message to Slack');
+        $this->trm->sendMessageTrm();
     }
 }

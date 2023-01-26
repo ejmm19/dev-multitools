@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::get('/trm', [GetTrm::class, 'execute']);
+Route::get('/sendtrm', [GetTrm::class, 'sendMessageTrm']);
