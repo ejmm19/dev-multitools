@@ -42,7 +42,7 @@ class GetTrm extends Command
     public function handle()
     {
         $response = $this->trm->getTrmByService();
-        Http::post(Env::get('URL_WEBHOOK_SLACK'),
+        Http::post(Env::get('URL_WEBHOOK_SLACK', ''),
             [
                 'text' => $response
             ]
